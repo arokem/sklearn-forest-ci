@@ -65,8 +65,8 @@ def _core_computation(X_train, X_test, inbag, pred_centered, n_trees):
 
 def _bias_correction(V_IJ, inbag, pred_centered, n_trees):
     n_train_samples = inbag.shape[0]
-    n_var = np.mean(np.square(inbag[0:n_trees]).mean(axis=1).T.view() -
-                    np.square(inbag[0:n_trees].mean(axis=1)).T.view())
+    n_var = np.mean(np.square(inbag[0:n_trees]).mean(axis=1).T -
+                    np.square(inbag[0:n_trees].mean(axis=1)).T)
     boot_var = np.square(pred_centered).sum(axis=1) / n_trees
     bias_correction = n_train_samples * n_var * boot_var / n_trees
     V_IJ_unbiased = V_IJ - bias_correction
